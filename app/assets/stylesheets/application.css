@@ -13,15 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-.centered_devise_login_pages {
-    width: 50%;
-    height: 50%;
-
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-}
