@@ -1,0 +1,10 @@
+<div class="product-card">
+  <% @product.images.each do |image| %>
+    <%= image_tag(image) %>
+  <% end %>
+  <p><%= @product.title %></p>
+  <p><%= number_to_currency(@product.price) %></p>
+  <% if current_user.is_buyer %>
+    <%= button_to 'Купить', buy_product_path(product_id: @product.id), method: :post %>
+  <% end %>
+</div>
