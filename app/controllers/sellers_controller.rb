@@ -24,9 +24,19 @@ class SellersController < ApplicationController
     redirect_to seller_path, notice: 'Product was successfully destroyed.'
   end
 
+  def show
+    @seller = Seller.find_by_user_id(current_user.id)
+    @products_amount_total = Product.where(seller_id: @seller.id).count
+    @products_amount_sold = Product.where(seller_id: @seller.id).where(buyer_id: !nil).count
+    @products_amount_not_sold = Product.where(seller_id: @seller.id).where(buyer_id: nil).count
+    @net_gain = Product.where(seller_id: @seller.id).where(buyer_id: !nil).sum(:price)
+  end
+
   private
 
   def product_params
     params.require(:product).permit(:title, :price, :description, images: [])
   end
+
+
 end

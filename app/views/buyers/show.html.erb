@@ -1,0 +1,21 @@
+<h4> купленные товары </h4>
+
+<div class="products-grid">
+  <% if @products %>
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <% if product.images.any? %>
+          <%= image_tag(product.images.first) %>
+        <% end %>
+        <p><%= product.title %></p>
+        <p><%= number_to_currency(product.price) %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <%= "Нет товаров" %>
+  <% end %>
+</div>
+
+<h2> всего купленно:  <%= @products_amount_total ? @products_amount_total : 0 %></h2>
+<p> денег потрачено:   <%= @net_gain ? @net_gain : 0 %>$</p>
+

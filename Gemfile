@@ -27,7 +27,6 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-
 # gems added by me
 
 # registrations
@@ -36,7 +35,7 @@ gem "devise", "~> 4.9"
 #readding .env files
 gem 'dotenv'
 
-
+gem 'action_policy'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -79,5 +78,6 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
+  gem "webdrivers"
 end
+

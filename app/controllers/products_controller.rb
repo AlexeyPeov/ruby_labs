@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
   def show
-    @product
+    @product = Product.find(params[:id])
+    authorize! @product
   end
 
   def new
@@ -15,13 +15,14 @@ class ProductsController < ApplicationController
     seller = Seller.find_by(user_id: current_user.id)
     @product.seller_id = seller.id
     if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
+      redirect_to '/', notice: 'Product was successfully created.'
     else
       render :new
     end
   end
 
   def edit
+    @product = Product.find(params[:id])
   end
 
   def update
@@ -44,6 +45,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:title, :amount, :price, :description, images: [])
+    params.require(:product).permit(:title, :price, :description, images: [])
   end
 end

@@ -1,3 +1,5 @@
+
+
 <div class="header">
   <div class="icon">
     <%= image_tag("logo.png", alt: "logo", class: "logo") %>
@@ -11,7 +13,7 @@
         <%=  link_to "Добавить", create_product_path  %>
         <%=  link_to "Аккаунт", show_seller_path  %>
         <%=  link_to "Редактировать", edit_user_registration_path  %>
-      <% else %>
+        <% else %>
         <%=  link_to "Аккаунт", show_buyer_path  %>
         <%=  link_to "Редактировать", edit_user_registration_path  %>
       <% end %>
@@ -22,16 +24,16 @@
 </div>
 
 <%=
-  str = ""
-  if current_user.is_buyer
-    str += "you are a buyer"
-  else
-    str += "you are a seller"
-  end
+    str = ""
+    if current_user.is_buyer
+      str += "you are a buyer"
+    else
+      str += "you are a seller"
+    end
 
-  str += ", your balance: " + @balance.to_s
+    str += ", your balance: " + @balance.to_s
 
-  str
+    str
 %>
 
 <div class="products-grid">
@@ -46,7 +48,7 @@
         <p><%= product.description %></p>
         <% if current_user.is_buyer %>
           <%= button_to 'Купить', buy_product_path(product_id: product.id), method: :post %>
-        <% else %>
+          <% else %>
           <%= button_to 'Редактировать', edit_product_path(product), method: :get %>
         <% end %>
       </div>

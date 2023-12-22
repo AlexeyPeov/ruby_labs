@@ -4,7 +4,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
 
   def create
+
     super
+
     if params[:user][:is_buyer] == 'true'
       Buyer.create(user: current_user)
     else
@@ -24,12 +26,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     resource.update_with_password(user_params)
+
+    #
+    # if params[:password].present?
+    #   resource.update_with_password(user_params)
+    # else
+    #   resource.update_without_password(user_params)
+    # end
   end
 
   private
   def user_params
 
-    params.require(:user).permit(:first_name, :last_name, :email, :confirmation_password)
+    params.require(:user).permit(:first_name, :last_name, :email, :current_password)
 
   end
 end

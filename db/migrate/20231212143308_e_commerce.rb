@@ -14,7 +14,6 @@ class ECommerce < ActiveRecord::Migration[7.0]
 
     create_table :products, id: :integer do |t|
       t.string :title
-      t.integer :amount
       t.decimal :price, precision: 8, scale: 2
       t.text :description, limit: 240
       t.references :seller, foreign_key: true
