@@ -1,0 +1,83 @@
+<div class="header">
+  <div class="icon">
+    <%= image_tag("logo.png", alt: "logo", class: "logo") %>
+  </div>
+  <div style = "font-family: Spendthrift,serif;  font-size: 65px;">BuySell</div>
+  <div class="account-icon">
+    <%= image_tag("account.png", alt: "logo", class: "logo") %>
+    <div class="burger-list">
+
+      <% if not current_user.is_buyer %>
+        <%=  link_to "Добавить", create_product_path  %>
+        <%=  link_to "Аккаунт", show_seller_path  %>
+        <%=  link_to "Редактировать", edit_user_registration_path  %>
+      <% else %>
+        <%=  link_to "Аккаунт", show_buyer_path  %>
+        <%=  link_to "Редактировать", edit_user_registration_path  %>
+      <% end %>
+      <%= "balance: " + @balance.to_s %>
+      <%= button_to 'Выйти', destroy_user_session_path, method: :delete %>
+    </div>
+  </div>
+</div>
+
+<%=
+  str = ""
+  if current_user.is_buyer
+    str += "you are a buyer"
+  else
+    str += "you are a seller"
+  end
+
+  str += ", your balance: " + @balance.to_s
+
+  str
+%>
+
+<div class="products-grid">
+  <% if @products.size > 0%>
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <% if product.images.any? %>
+          <%= image_tag(product.images.first) %>
+        <% end %>
+        <p><%= product.title %></p>
+        <p><%= number_to_currency(product.price) %></p>
+        <p><%= product.description %></p>
+        <% if current_user.is_buyer %>
+          <%= button_to 'Купить', buy_product_path(product_id: product.id), method: :post %>
+        <% else %>
+          <%= button_to 'Редактировать', edit_product_path(product), method: :get %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= "Нет товаров" %>
+  <% end %>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+        if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove("lazy");
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function (lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        } else {
+            // Possibly fall back to a more compatible method here
+        }
+    });
+</script>
