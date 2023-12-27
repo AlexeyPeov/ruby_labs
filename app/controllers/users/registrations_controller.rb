@@ -1,6 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 
-
   before_action :configure_sign_up_params, only: [:create]
 
   def create
@@ -14,9 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-
   protected
+
   def after_sign_up_path_for(resource)
+    # edit_user_registration_path
     '/users/edit'
   end
 
@@ -36,9 +36,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
   def user_params
 
-    params.require(:user).permit(:first_name, :last_name, :email, :current_password)
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :current_password,
+      :password,
+      :password_confirmation
+    )
 
   end
 end

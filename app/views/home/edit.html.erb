@@ -1,0 +1,19 @@
+<div class = "centered_devise_login_pages">
+
+  <%= form_with(model: @user, local: true) do |form| %>
+    <div class="field">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :second_name %>
+      <%= form.text_field :second_name %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+
+</div>
