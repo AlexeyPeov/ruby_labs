@@ -1,0 +1,29 @@
+<div class = "centered_devise_login_pages">
+
+  <%= form_with(model: @product, local: true) do |form| %>
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= form.label :price %>
+      <%= form.number_field :price, step: 0.01 %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description, maxlength: 240 %>
+    </div>
+
+    <div class="field">
+      <%= form.label :images %>
+      <%= form.file_field :images, multiple: true %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+
+</div>
